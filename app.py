@@ -1,4 +1,4 @@
-"""Paso 1: una pregunta y una respuesta, sin ejecutar comandos."""
+"""Local web chat with conversation history and command approval."""
 import json
 import secrets
 from agent import advance, decide
@@ -39,7 +39,7 @@ form.addEventListener('submit',async e=>{e.preventDefault();const question=input
 
 class Handler(BaseHTTPRequestHandler):
     def log_message(self, *args):
-        pass  # No guardar preguntas ni claves en los registros.
+        pass  # Do not log questions or credentials.
 
     def send(self, status, body, content_type='application/json; charset=utf-8'):
         self.send_response(status)

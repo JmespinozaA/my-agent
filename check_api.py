@@ -1,4 +1,4 @@
-"""Comprueba la conexión; no ejecuta comandos ni muestra la clave."""
+"""Check the API connection without executing commands or displaying the key."""
 import json
 import ssl
 from pathlib import Path
@@ -24,24 +24,24 @@ def request(messages, **options):
         with urllib.request.urlopen(req, timeout=60, context=tls) as response:
             result = json.load(response)
     except urllib.error.HTTPError as error:
-        print(f'La API respondió HTTP {error.code}.')
+        print(f'The API returned HTTP {error.code}.')
         raise SystemExit(1)
     except (urllib.error.URLError, TimeoutError):
-        print('No se pudo conectar a la API dentro del tiempo permitido.')
+        print('Could not connect to the API within the time limit.')
         raise SystemExit(1)
     usage = result.get('usage', {})
-    print('Tokens de entrada:', usage.get('prompt_tokens', 'no informado'))
-    print('Tokens en caché:', (usage.get('prompt_tokens_details') or {}).get('cached_tokens', 'no informado'))
-    print('Tokens de salida:', usage.get('completion_tokens', 'no informado'))
+    print('Input tokens:', usage.get('prompt_tokens', 'not reported'))
+    print('Cached input tokens:', (usage.get('prompt_tokens_details') or {}).get('cached_tokens', 'not reported'))
+    print('Output tokens:', usage.get('completion_tokens', 'not reported'))
     return result['choices'][0]['message']
 
-print('Prueba 1: ¿Cuánto es 2 + 2?')
-reply = request([{'role': 'user', 'content': '¿Cuánto es 2 + 2? Responde brevemente en español.'}])
-print('Respuesta:', reply.get('content'))
+print('Test 1: What is 2 + 2?')
+reply = request([{'role': 'user', 'content': 'What is 2 + 2? Reply briefly in English.'}])
+print('Answer:', reply.get('content'))
 
-print('\nPrueba 2: pedir la herramienta bash, SIN ejecutar el comando.')
-tool = {'type': 'function', 'function': {'name': 'bash', 'description': 'Solicita ejecutar un comando de shell, sujeto a permiso del usuario.', 'parameters': {'type': 'object', 'properties': {'command': {'type': 'string'}}, 'required': ['command']}}}
-reply = request([{'role': 'user', 'content': 'Usa bash para ejecutar echo prueba.'}], tools=[tool], tool_choice={'type': 'function', 'function': {'name': 'bash'}})
+print('\nTest 2: request the bash tool WITHOUT executing the command.')
+tool = {'type': 'function', 'function': {'name': 'bash', 'description': 'Request a shell command, subject to user approval.', 'parameters': {'type': 'object', 'properties': {'command': {'type': 'string'}}, 'required': ['command']}}}
+reply = request([{'role': 'user', 'content': 'Use bash to run echo test.'}], tools=[tool], tool_choice={'type': 'function', 'function': {'name': 'bash'}})
 calls = reply.get('tool_calls', [])
-print('El modelo pidió bash:', bool(calls) and all(c.get('function', {}).get('name') == 'bash' for c in calls))
-print('No se ejecutó ningún comando solicitado por el modelo.')
+print('The model requested bash:', bool(calls) and all(c.get('function', {}).get('name') == 'bash' for c in calls))
+print('No model-requested commands were executed.')
