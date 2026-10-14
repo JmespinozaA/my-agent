@@ -1,4 +1,4 @@
-# Mi agente
+# My Agent
 
 A small local web chat for UCLA AI in Research, Week 2. Built with Python's standard library, an OpenAI-compatible Chat Completions API, and exactly one tool: `bash`. No agent framework or Python packages are required.
 
@@ -9,8 +9,8 @@ The interface is in English. It displays a conversation, token usage for each AP
 Requirements: Git, Python 3.10 or newer, and Bash. macOS and Linux are supported. On Windows, use WSL with a Linux distribution; native Windows Python is not supported because the tool uses `/bin/bash`.
 
 ```bash
-git clone https://github.com/JmespinozaA/mi-agente.git
-cd mi-agente
+git clone https://github.com/JmespinozaA/my-agent.git
+cd my-agent
 cp .env.example .env
 ```
 

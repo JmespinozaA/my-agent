@@ -20,10 +20,10 @@ tls = ssl.create_default_context(cafile=str(certs) if certs.exists() else None)
 sessions = {}
 
 PAGE = '''<!doctype html>
-<html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Chat</title>
+<html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>My Agent</title>
 <style>
 *{box-sizing:border-box}body{font:16px system-ui;margin:0;background:#fff;color:#202124}main{height:100dvh;max-width:850px;margin:auto;display:flex;flex-direction:column;padding:0 24px}header{display:flex;align-items:center;justify-content:space-between;padding:18px 0;border-bottom:1px solid #eee}h1{font-size:20px;margin:0}button{font:inherit;cursor:pointer;border:0;border-radius:12px;padding:10px 16px}#new{background:#f2f2f2}#messages{flex:1;overflow-y:auto;padding:28px 0;display:flex;flex-direction:column;gap:24px}.message{max-width:90%;white-space:pre-wrap;overflow-wrap:anywhere;line-height:1.65}.user{align-self:flex-end;background:#f1f1f1;border-radius:22px;padding:12px 20px}.assistant{align-self:flex-start;padding:4px 0}.usage{font-size:12px;color:#777;margin-top:10px;white-space:normal}.empty{margin:auto;text-align:center;color:#777;font-size:22px}form{display:flex;align-items:flex-end;gap:12px;border:1px solid #ddd;background:#fafafa;border-radius:24px;padding:12px;margin:16px 0 10px}textarea{flex:1;border:0;outline:0;background:transparent;font:inherit;resize:none;padding:8px;max-height:180px}#send{background:#202124;color:white}button:disabled{opacity:.4;cursor:default}.footnote{font-size:12px;text-align:center;color:#777;margin:0 0 16px}.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)}
-</style><main><header><h1>Chat</h1><button id="new" type="button">New chat</button></header>
+</style><main><header><h1>My Agent</h1><button id="new" type="button">New chat</button></header>
 <section id="messages" role="log" aria-label="Conversation" aria-live="polite"><div class="empty" id="empty">How can I help?</div></section>
 <form id="form"><label class="sr-only" for="question">Message</label><textarea id="question" rows="2" required placeholder="Message…" maxlength="4000"></textarea><button id="send">Send</button></form><p class="footnote">AI can make mistakes. Check important information.</p></main>
 <script>
